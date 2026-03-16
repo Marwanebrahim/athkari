@@ -1,8 +1,12 @@
 import 'package:athkari/core/constants/app_colors.dart';
 import 'package:athkari/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox("azkariBox");
   runApp(const MyApp());
 }
 
