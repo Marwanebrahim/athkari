@@ -12,6 +12,8 @@ class AppColors {
   static const Color switchColor = Color(0xFFE2E8F0);
   static const Color switchButton = Color(0xFFD1D5DB);
   static Gradient splashGrad = LinearGradient(
-    colors: [primary.withValues(alpha: 0.08), background],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [primary.withValues(alpha: 0.15), background],
   );
 }
