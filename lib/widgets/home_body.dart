@@ -2,7 +2,10 @@ import 'package:athkari/core/constants/app_colors.dart';
 import 'package:athkari/core/constants/app_text_styles.dart';
 import 'package:athkari/cubit/zekr%20cubit/zekr_cubit.dart';
 import 'package:athkari/cubit/zekr%20cubit/zekr_state.dart';
+
+import 'package:athkari/screens/zekr_editor.dart';
 import 'package:athkari/widgets/current_zekr.dart';
+import 'package:athkari/widgets/delete_bottom_sheet_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -40,6 +43,7 @@ class HomeBody extends StatelessWidget {
                 const SizedBox(height: 20),
                 Expanded(
                   child: ListView.separated(
+                    physics: const BouncingScrollPhysics(),
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 5),
                     itemCount: state.adhkar.length,
@@ -73,7 +77,15 @@ class HomeBody extends StatelessWidget {
                               ),
                             ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ZekrEditor(zekr: state.adhkar[index]),
+                                  ),
+                                );
+                              },
                               icon: Icon(
                                 Icons.edit_outlined,
                                 color: AppColors.lightGray,
@@ -81,7 +93,21 @@ class HomeBody extends StatelessWidget {
                               ),
                             ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                final result = await showModalBottomSheet(
+                                  isDismissible: false,
+                                  enableDrag: false,
+                                  context: context,
+                                  backgroundColor: Colors.transparent,
+                                  builder: (_) => BlocProvider.value(
+                                    value: context.read<ZekrCubit>(),
+                                    child: DeleteBottomSheet(index: index),
+                                  ),
+                                );
+                                if (result == true && context.mounted) {
+                                  context.read<ZekrCubit>().getAdhkar();
+                                }
+                              },
                               icon: Icon(
                                 Icons.delete_outline,
                                 color: AppColors.lightGray,

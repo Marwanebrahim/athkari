@@ -1,6 +1,7 @@
 import 'package:athkari/core/constants/app_colors.dart';
 import 'package:athkari/core/constants/app_text_styles.dart';
 import 'package:athkari/screens/setting_screen.dart';
+import 'package:athkari/screens/zekr_editor.dart';
 import 'package:athkari/widgets/home_builder.dart';
 import 'package:flutter/material.dart';
 
@@ -29,6 +30,16 @@ class HomeScreen extends StatelessWidget {
       ),
 
       body: HomeBuilder(),
+      floatingActionButton: FloatingActionButton(
+        shape: CircleBorder(),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ZekrEditor(zekr: null)),
+          );
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }

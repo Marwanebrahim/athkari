@@ -22,9 +22,12 @@ class ZekrCubit extends Cubit<ZekrState> {
     }
   }
 
-  void saveAdhkar({required String zekr, required List<String> azkar}) async {
+  void saveAdhkar({required String zekr}) async {
     try {
-      azkar.add(zekr);
+      List<String> azkar = azkarService.getAzkar();
+      if (!azkar.contains(zekr)) {
+        azkar.add(zekr);
+      }
       await azkarService.saveAzkar(azkar: azkar);
       getAdhkar();
     } catch (e) {
@@ -32,8 +35,9 @@ class ZekrCubit extends Cubit<ZekrState> {
     }
   }
 
-  void deleteAdhkar({required int index, required List<String> azkar}) async {
+  void deleteAdhkar({required int index}) async {
     try {
+      List<String> azkar = azkarService.getAzkar();
       azkar.removeAt(index);
       await azkarService.saveAzkar(azkar: azkar);
       getAdhkar();

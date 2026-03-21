@@ -29,6 +29,10 @@ class MyApp extends StatelessWidget {
             backgroundColor: AppColors.background,
             titleSpacing: 10,
           ),
+          floatingActionButtonTheme: const FloatingActionButtonThemeData(
+            backgroundColor: AppColors.primary,
+            foregroundColor: AppColors.white,
+          ),
         ),
         builder: (context, child) =>
             Directionality(textDirection: TextDirection.rtl, child: child!),
