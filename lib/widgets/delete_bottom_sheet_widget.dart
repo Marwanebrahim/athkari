@@ -29,7 +29,7 @@ class _DeleteBottomSheetState extends State<DeleteBottomSheet> {
           CustomButtonWidget(
             onTap: () {
               context.read<ZekrCubit>().deleteAdhkar(index: widget.index);
-              Navigator.pop(context, true);
+              Navigator.pop(context);
             },
             hieght: 50,
             width: 290,

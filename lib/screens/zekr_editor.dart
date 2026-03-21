@@ -6,9 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/zekr cubit/zekr_cubit.dart';
 
 class ZekrEditor extends StatefulWidget {
-  const ZekrEditor({super.key, required this.zekr});
+  const ZekrEditor({super.key, required this.zekr,  this.index});
   final String? zekr;
-
+  final int? index;
   @override
   State<ZekrEditor> createState() => _ZekrEditorState();
 }
@@ -73,7 +73,16 @@ class _ZekrEditorState extends State<ZekrEditor> {
             Divider(color: AppColors.primary.withAlpha(51)),
             GestureDetector(
               onTap: () {
-                context.read<ZekrCubit>().saveAdhkar(zekr: _controller.text);
+                if (widget.zekr != null) {
+                  // edit mode
+                  context.read<ZekrCubit>().editAdhkar(
+                    index: widget.index!,
+                    newZekr: _controller.text,
+                  );
+                } else {
+                  // add mode
+                  context.read<ZekrCubit>().saveAdhkar(zekr: _controller.text);
+                }
                 Navigator.pop(context);
               },
               child: Container(

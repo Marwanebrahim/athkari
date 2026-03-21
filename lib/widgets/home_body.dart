@@ -81,8 +81,10 @@ class HomeBody extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        ZekrEditor(zekr: state.adhkar[index]),
+                                    builder: (context) => ZekrEditor(
+                                      zekr: state.adhkar[index],
+                                      index: index,
+                                    ),
                                   ),
                                 );
                               },
@@ -94,7 +96,7 @@ class HomeBody extends StatelessWidget {
                             ),
                             IconButton(
                               onPressed: () async {
-                                final result = await showModalBottomSheet(
+                                await showModalBottomSheet(
                                   isDismissible: false,
                                   enableDrag: false,
                                   context: context,
@@ -104,9 +106,6 @@ class HomeBody extends StatelessWidget {
                                     child: DeleteBottomSheet(index: index),
                                   ),
                                 );
-                                if (result == true && context.mounted) {
-                                  context.read<ZekrCubit>().getAdhkar();
-                                }
                               },
                               icon: Icon(
                                 Icons.delete_outline,

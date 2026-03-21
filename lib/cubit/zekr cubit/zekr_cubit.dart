@@ -49,9 +49,9 @@ class ZekrCubit extends Cubit<ZekrState> {
   void editAdhkar({
     required int index,
     required String newZekr,
-    required List<String> azkar,
   }) async {
     try {
+      List<String> azkar = azkarService.getAzkar();
       azkar[index] = newZekr;
       await azkarService.saveAzkar(azkar: azkar);
       getAdhkar();

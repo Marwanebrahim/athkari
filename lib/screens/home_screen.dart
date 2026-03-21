@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ZekrEditor(zekr: null)),
+            MaterialPageRoute(builder: (context) => ZekrEditor(zekr: null, index: null,)),
           );
         },
         child: const Icon(Icons.add),
