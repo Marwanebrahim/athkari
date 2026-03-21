@@ -1,6 +1,8 @@
 import 'package:athkari/core/constants/app_colors.dart';
+import 'package:athkari/cubit/zekr%20cubit/zekr_cubit.dart';
 import 'package:athkari/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
@@ -15,10 +17,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(scaffoldBackgroundColor: AppColors.background),
-      home: const SplashScreen(),
+    return BlocProvider(
+      create: (context) => ZekrCubit()
+        ..initDefaultAdhkar()
+        ..getAdhkar(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          scaffoldBackgroundColor: AppColors.background,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: AppColors.background,
+            titleSpacing: 10,
+          ),
+        ),
+        builder: (context, child) =>
+            Directionality(textDirection: TextDirection.rtl, child: child!),
+        home: const SplashScreen(),
+      ),
     );
   }
 }

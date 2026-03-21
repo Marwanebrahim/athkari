@@ -1,6 +1,7 @@
 import 'package:athkari/core/constants/app_colors.dart';
 import 'package:athkari/core/constants/app_text_styles.dart';
 import 'package:athkari/core/constants/image_helper.dart';
+import 'package:athkari/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -29,7 +30,13 @@ class _SplashScreenState extends State<SplashScreen>
       end: 1,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
     _controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {}
+      if (status == AnimationStatus.completed) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+          (route) => false,
+        );
+      }
     });
   }
 
@@ -98,7 +105,7 @@ class _SplashScreenState extends State<SplashScreen>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  '${_toArabicNumbers((_progressAnimation.value * 100).toInt())}٪',
+                                  'جاري التحميل...',
                                   style: AppTextStyles.regular14.copyWith(
                                     color: AppColors.primary.withValues(
                                       alpha: 0.6,
@@ -106,7 +113,7 @@ class _SplashScreenState extends State<SplashScreen>
                                   ),
                                 ),
                                 Text(
-                                  'جاري التحميل...',
+                                  '${_toArabicNumbers((_progressAnimation.value * 100).toInt())}٪',
                                   style: AppTextStyles.regular14.copyWith(
                                     color: AppColors.primary.withValues(
                                       alpha: 0.6,

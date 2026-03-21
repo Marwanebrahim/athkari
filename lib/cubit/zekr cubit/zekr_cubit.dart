@@ -15,7 +15,8 @@ class ZekrCubit extends Cubit<ZekrState> {
     emit(ZekrLoading());
     try {
       List<String> adhkar = azkarService.getAzkar();
-      emit(ZekrLoaded(adhkar: adhkar));
+      int currentIndex = getCurrentIndex();
+      emit(ZekrLoaded(adhkar: adhkar, currentIndex: currentIndex));
     } catch (e) {
       emit(ZekrError(message: e.toString()));
     }
