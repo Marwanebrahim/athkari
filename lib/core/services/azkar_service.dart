@@ -32,4 +32,12 @@ class AzkarService {
       await Hive.box(_azkariBox).put('is_first_time', false);
     }
   }
+
+  Future<void> saveInterval(int minutes) async {
+    await Hive.box(_azkariBox).put('interval', minutes);
+  }
+
+  int getInterval() {
+    return Hive.box(_azkariBox).get('interval', defaultValue: 5);
+  }
 }
