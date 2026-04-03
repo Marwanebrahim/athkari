@@ -1,5 +1,4 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:timezone/timezone.dart' as tz;
 
 class NotificationService {
   FlutterLocalNotificationsPlugin localNotificationsPlugin = .new();
@@ -20,10 +19,9 @@ class NotificationService {
         ?.requestNotificationsPermission();
   }
 
-  Future<void> scheduleNotification({
+  Future<void> showNotification({
     required int index,
     required String zekr,
-    required Duration interval,
   }) async {
     AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
@@ -36,14 +34,11 @@ class NotificationService {
     NotificationDetails notificationDetails = NotificationDetails(
       android: androidNotificationDetails,
     );
-
-    await localNotificationsPlugin.zonedSchedule(
+    await localNotificationsPlugin.show(
       id: index,
-      title: 'اؔذكاري',
+      title: 'أذكاري',
       body: zekr,
-      scheduledDate: tz.TZDateTime.now(tz.local).add(interval),
       notificationDetails: notificationDetails,
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
     );
   }
 

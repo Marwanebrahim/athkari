@@ -1,18 +1,17 @@
 import 'package:athkari/core/constants/app_colors.dart';
+import 'package:athkari/core/services/background_service.dart';
 import 'package:athkari/cubit/zekr%20cubit/zekr_cubit.dart';
 import 'package:athkari/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest.dart' as tz;
+import 'package:workmanager/workmanager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox("azkariBox");
-  tz.initializeTimeZones();
-  tz.setLocalLocation(tz.getLocation('Africa/Cairo'));
+  Workmanager().initialize(callbackDispatcher);
   runApp(const MyApp());
 }
 
