@@ -1,8 +1,6 @@
 import 'package:athkari/core/constants/app_colors.dart';
 import 'package:athkari/core/constants/app_text_styles.dart';
-import 'package:athkari/cubit/zekr%20cubit/zekr_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubit/zekr cubit/zekr_state.dart';
 
@@ -34,7 +32,7 @@ class CurrentZekr extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      "كل ${context.read<ZekrCubit>().getInterval()} دقيقة",
+                      "كل ${state.interval} دقيقة",
                       style: AppTextStyles.semibold12.copyWith(
                         color: AppColors.white,
                       ),

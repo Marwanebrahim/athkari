@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/zekr cubit/zekr_cubit.dart';
 
 class ZekrEditor extends StatefulWidget {
-  const ZekrEditor({super.key, required this.zekr,  this.index});
+  const ZekrEditor({super.key, required this.zekr, this.index});
   final String? zekr;
   final int? index;
   @override
@@ -27,7 +27,7 @@ class _ZekrEditorState extends State<ZekrEditor> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
-          "إضافة ذكر",
+          widget.zekr != null ? "تعديل ذكر" : "إضافة ذكر",
           style: AppTextStyles.semibold18.copyWith(color: AppColors.text1),
         ),
       ),
