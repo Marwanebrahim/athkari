@@ -13,14 +13,9 @@ class ZekrCubit extends Cubit<ZekrState> {
 
   Future<void> initDefaultAdhkar() async {
     await azkarService.initDefaultAzkar(defaultAzkar: ApPStrings.defaultAdhkar);
-    await azkarService.saveInterval(15);
     await notificationService.init();
     await notificationService.requestAndroidPermissions();
-    await workmanager.registerPeriodicTask(
-      'athkari_notification_task',
-      'athkari_notification_task',
-      frequency: Duration(minutes: getInterval()),
-    );
+    await registerTask();
   }
 
   Future<void> getAdhkar() async {
@@ -28,10 +23,28 @@ class ZekrCubit extends Cubit<ZekrState> {
       emit(ZekrLoading());
       List<String> adhkar = azkarService.getAzkar();
       int currentIndex = getCurrentIndex();
-      emit(ZekrLoaded(adhkar: adhkar, currentIndex: currentIndex));
+      emit(
+        ZekrLoaded(
+          adhkar: adhkar,
+          currentIndex: currentIndex,
+          interval: getInterval(),
+        ),
+      );
     } catch (e) {
       emit(ZekrError(message: e.toString()));
     }
+  }
+
+  Future<void> registerTask() async {
+    await workmanager.registerPeriodicTask(
+      'athkari_notification_task',
+      'athkari_notification_task',
+      frequency: Duration(minutes: getInterval()),
+    );
+  }
+
+  Future<void> cancelTask() async {
+    await workmanager.cancelAll();
   }
 
   void saveAdhkar({required String zekr}) async {
@@ -79,6 +92,7 @@ class ZekrCubit extends Cubit<ZekrState> {
 
   Future<void> saveInterval(int minutes) async {
     await azkarService.saveInterval(minutes);
+    getAdhkar();
   }
 
   int getInterval() {

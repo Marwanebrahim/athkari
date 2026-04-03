@@ -5,7 +5,12 @@ class ZekrInitial extends ZekrState {}
 class ZekrLoaded extends ZekrState {
   final List<String> adhkar;
   final int currentIndex;
-  ZekrLoaded({required this.adhkar, required this.currentIndex});
+  final int interval;
+  ZekrLoaded({
+    required this.adhkar,
+    required this.currentIndex,
+    required this.interval,
+  });
 }
 
 class ZekrError extends ZekrState {
