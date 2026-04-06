@@ -38,6 +38,6 @@ class AzkarService {
   }
 
   int getInterval() {
-    return Hive.box(_azkariBox).get('interval', defaultValue: 5);
+    return Hive.box(_azkariBox).get('interval', defaultValue: 15);
   }
 }
