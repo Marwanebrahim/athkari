@@ -1,12 +1,19 @@
 import 'package:athkari/core/constants/app_strings.dart';
+import 'package:athkari/core/repositories/azkar_repository.dart';
+import 'package:athkari/core/repositories/index_repository.dart';
+import 'package:athkari/core/repositories/setting_repository.dart';
 import 'package:athkari/core/services/azkar_service.dart';
+import 'package:athkari/core/services/index_service.dart';
 import 'package:athkari/core/services/notification_service.dart';
+import 'package:athkari/core/services/setting_service.dart';
 import 'package:athkari/cubit/zekr%20cubit/zekr_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:workmanager/workmanager.dart';
 
 class ZekrCubit extends Cubit<ZekrState> {
-  final AzkarService azkarService = .new();
+  final AzkarRepository azkarService = AzkarService();
+  final IndexRepository indexService = IndexService();
+  final SettingRepository settingService = SettingService();
   final NotificationService notificationService = .new();
   final Workmanager workmanager = .new();
   ZekrCubit() : super(ZekrInitial());
@@ -83,19 +90,19 @@ class ZekrCubit extends Cubit<ZekrState> {
   }
 
   int getCurrentIndex() {
-    return azkarService.getCurrentIndex();
+    return indexService.getCurrentIndex();
   }
 
   Future<void> saveCurrentIndex(int index) async {
-    await azkarService.saveCurrentIndex(index);
+    await indexService.saveCurrentIndex(index);
   }
 
   Future<void> saveInterval(int minutes) async {
-    await azkarService.saveInterval(minutes);
+    await settingService.saveInterval(minutes);
     getAdhkar();
   }
 
   int getInterval() {
-    return azkarService.getInterval();
+    return settingService.getInterval();
   }
 }

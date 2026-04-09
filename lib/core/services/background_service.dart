@@ -1,4 +1,5 @@
 import 'package:athkari/core/services/azkar_service.dart';
+import 'package:athkari/core/services/index_service.dart';
 import 'package:athkari/core/services/notification_service.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:workmanager/workmanager.dart';
@@ -10,16 +11,17 @@ void callbackDispatcher() {
     await Hive.openBox("azkariBox");
 
     final AzkarService azkarService = .new();
+    final IndexService indexService = .new();
     final NotificationService notificationService = .new();
     await notificationService.init();
     List<String> azkar = azkarService.getAzkar();
-    int currentIndex = azkarService.getCurrentIndex();
+    int currentIndex = indexService.getCurrentIndex();
     String currentZekr = azkar[currentIndex];
     await notificationService.showNotification(
       index: currentIndex,
       zekr: currentZekr,
     );
-    await azkarService.saveCurrentIndex((currentIndex + 1) % azkar.length);
+    await indexService.saveCurrentIndex((currentIndex + 1) % azkar.length);
     return Future.value(true);
   });
 }

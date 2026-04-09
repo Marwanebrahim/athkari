@@ -1,28 +1,11 @@
+import 'package:athkari/core/repositories/azkar_repository.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-class AzkarService {
+class AzkarService implements AzkarRepository {
   final String _azkariBox = 'azkariBox';
   final String _azkarKey = 'azkariKey';
-  final String _currentIndexKey = 'currentIndex';
 
-  List<String> getAzkar() {
-    return List<String>.from(
-      Hive.box(_azkariBox).get(_azkarKey, defaultValue: []),
-    );
-  }
-
-  Future<void> saveAzkar({required List<String> azkar}) async {
-    await Hive.box(_azkariBox).put(_azkarKey, azkar);
-  }
-
-  int getCurrentIndex() {
-    return Hive.box(_azkariBox).get(_currentIndexKey, defaultValue: 0);
-  }
-
-  Future<void> saveCurrentIndex(int index) async {
-    await Hive.box(_azkariBox).put(_currentIndexKey, index);
-  }
-
+  @override
   Future<void> initDefaultAzkar({required List<String> defaultAzkar}) async {
     final bool isFirstTime = Hive.box(
       _azkariBox,
@@ -33,11 +16,15 @@ class AzkarService {
     }
   }
 
-  Future<void> saveInterval(int minutes) async {
-    await Hive.box(_azkariBox).put('interval', minutes);
+  @override
+  List<String> getAzkar() {
+    return List<String>.from(
+      Hive.box(_azkariBox).get(_azkarKey, defaultValue: []),
+    );
   }
 
-  int getInterval() {
-    return Hive.box(_azkariBox).get('interval', defaultValue: 15);
+  @override
+  Future<void> saveAzkar({required List<String> azkar}) async {
+    await Hive.box(_azkariBox).put(_azkarKey, azkar);
   }
 }
